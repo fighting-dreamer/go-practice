@@ -1,8 +1,11 @@
 package dsa
 
-import "fmt"
+import (
+	"cmp"
+	"fmt"
+)
 
-type Node[T any] struct {
+type Node[T cmp.Ordered | any] struct {
 	Val  T
 	Next *Node[T]
 }
