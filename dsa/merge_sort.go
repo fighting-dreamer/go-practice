@@ -1,4 +1,6 @@
-package main
+package dsa
+
+// package main
 
 import (
 	"fmt"
@@ -95,7 +97,7 @@ func mergeSort(nums []int, n int) {
 	merge_sort(nums, 0, n-1)
 }
 
-func main() {
+func testMergeSort() {
 	n := readInt()
 	nums := []int{}
 	for i := 0; i < n; i++ {
@@ -105,3 +107,7 @@ func main() {
 	mergeSort(nums, n)
 	fmt.Println(nums)
 }
+
+// func main() {
+// 	testMergeSort()
+// }
