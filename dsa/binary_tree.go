@@ -3,75 +3,98 @@ package dsa
 // package main
 
 import (
-	"cmp"
 	"fmt"
 	"log"
 )
 
-type TreeNode[T cmp.Ordered] struct {
+type TreeNode[T any] struct {
 	Val   T
 	Left  *TreeNode[T]
 	Right *TreeNode[T]
 }
 
-type BSTTree[T cmp.Ordered] struct {
+type BinaryTree[T any] struct {
 	Size int
 	Head *TreeNode[T]
 }
 
-func NewBinarySearchTree[T cmp.Ordered]() *BSTTree[T] {
-	return &BSTTree[T]{
+func NewBinaryTree[T any]() *BinaryTree[T] {
+	return &BinaryTree[T]{
 		Size: 0,
 	}
 }
 
-func (t *BSTTree[T]) AddNode(val T) {
-	defer func() { t.Size++ }()
+func kthBit(n, k int) int {
+	return (n >> k) & 1
+}
 
-	if t.Head == nil {
+func bitSize(n int) int {
+	k := 0
+	for n >= (1 << k) {
+		k++
+	}
+
+	return k
+}
+
+func (t *BinaryTree[T]) AddNode(val T) {
+	t.Size++
+	if t.Size == 1 {
 		t.Head = &TreeNode[T]{
 			Val: val,
 		}
 	} else {
-		curr := t.Head
-		var old *TreeNode[T]
-		for curr != nil {
-			old = curr
-			if curr.Val >= val {
-				curr = curr.Left
+		// size = 2 => 10 => just to left
+		// size = 3 => 11 => just to right
+		// size = 4 => 100 => just to left of left
+		// 5 => 101 => left -> right
+		// 6 => 110 => right -> left
+		// 7 => 111 => right -> right
+		// 8 => 1000 => left -> left -> left
+		// ... 11 => 1011 => left -> right -> right
+		// size & 1 tells the node is going to be a left node or right node
+		// (size >> 1) 's reverse if 1 => right, else left
+		bitCount := bitSize(t.Size) - 1 // for 6 => 3 -1 = 2
+		head := t.Head
+		for bitCount > 1 {
+			kthBit := kthBit(t.Size, bitCount-1)
+			// fmt.Print(head.Val, " ")
+			if kthBit == 0 {
+				head = head.Left
 			} else {
-				curr = curr.Right
+				head = head.Right
 			}
+			bitCount--
 		}
-		if old.Val >= val {
-			old.Left = &TreeNode[T]{
+		if kthBit(t.Size, 0) == 0 {
+			head.Left = &TreeNode[T]{
 				Val: val,
 			}
 		} else {
-			old.Right = &TreeNode[T]{
+			head.Right = &TreeNode[T]{
 				Val: val,
 			}
 		}
-	}
 
-	return
+		fmt.Println("Last Node : ", head.Val, " ==> ", kthBit(t.Size, 0), " ==> ", val)
+	}
 }
 
-func BstInorderTraversal[T cmp.Ordered](head *TreeNode[T]) {
+func InorderTraversal[T any](head *TreeNode[T]) {
 	if head == nil {
 		return
 	}
-	BstInorderTraversal(head.Left)
+	InorderTraversal(head.Left)
 	fmt.Println(head.Val, " ")
-	BstInorderTraversal(head.Right)
+	InorderTraversal(head.Right)
 }
 
-func PrintInorder[T cmp.Ordered](t *BSTTree[T]) {
+func PrintInorder[T any](t *BinaryTree[T]) {
 	if t.Size == 0 {
 		return
 	}
 
-	BstInorderTraversal(t.Head)
+	InorderTraversal(t.Head)
 }
 
 func readInt() int {
@@ -111,10 +134,10 @@ func readChar() rune {
 }
 
 // func main() {
-// 	bst := NewBinarySearchTree[int]()
+// 	bt := NewBinaryTree[int]()
 // 	n := readInt()
 // 	for i := 0; i < n; i++ {
-// 		bst.AddNode(readInt())
+// 		bt.AddNode(readInt())
 // 	}
-// 	PrintInorder(bst)
+// 	PrintInorder(bt)
 // }
