@@ -54,6 +54,28 @@ func (g *Graph[T]) printGraphAdjList() {
 	}
 }
 
+func (g *Graph[T]) BFSTraversal() {
+	var q []int
+	vis := make([]bool, g.V)
+
+	q = append(q, 0)
+	vis[0] = true
+	for len(q) > 0 {
+		u := q[0]
+		q = q[1:]
+
+		fmt.Println(u)
+
+		for i := 0; i < len(g.adj[u]); i++ {
+			v := g.adj[u][i].Id
+			if vis[v] == false {
+				q = append(q, v)
+				vis[v] = true
+			}
+		}
+	}
+}
+
 func main() {
 	g := NewGraph[int](5, 6)
 	g.AddEdge(0, 1, 1)
@@ -64,4 +86,6 @@ func main() {
 	g.AddEdge(3, 4, 1)
 
 	g.printGraphAdjList()
+	fmt.Println()
+	g.BFSTraversal()
 }
