@@ -100,7 +100,7 @@ func (g *Graph[T]) DFSTraversal() {
 	}
 }
 
-func main() {
+func NewUndirectedGraph() *Graph {
 	g := NewGraph[int](5, 6)
 	g.AddEdge(0, 1, 1)
 	g.AddEdge(0, 4, 1)
@@ -109,6 +109,31 @@ func main() {
 	g.AddEdge(2, 3, 1)
 	g.AddEdge(3, 4, 1)
 
+	return g
+}
+
+func NewDirectedGraph() *Graph {
+	g := NewGraph[int](5, 6)
+
+	/*
+		1 -> 0 -> 3
+		\u2B06\uFE0F   \u2197\uFE0F  \u2196\uFE0F   \u2B06\uFE0F
+		2       4
+
+	*/
+
+	g.AddDirectedEdge(1, 0, 1)
+	g.AddDirectedEdge(0, 3, 1)
+	g.AddDirectedEdge(2, 1, 1)
+	g.AddDirectedEdge(0, 2, 1)
+	g.AddDirectedEdge(4, 0, 1)
+	g.AddDirectedEdge(3, 4, 1)
+
+	return g
+}
+
+func main() {
+	g = NewUndirectedGraph()
 	g.printGraphAdjList()
 	fmt.Println()
 	g.BFSTraversal()
