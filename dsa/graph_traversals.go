@@ -76,6 +76,30 @@ func (g *Graph[T]) BFSTraversal() {
 	}
 }
 
+func dfsHelper[T any](vis []int, u int, g *Graph[T]) {
+	vis[u] = 1
+
+	fmt.Println(u)
+
+	for i := 0; i < len(g.adj[u]); i++ {
+		v := g.adj[u][i].Id
+		if vis[v] == 0 {
+			dfsHelper(vis, v, g)
+		}
+	}
+}
+
+func (g *Graph[T]) DFSTraversal() {
+	vis := make([]int, g.V)
+
+	for i := 0; i < g.V; i++ {
+		if vis[i] == 1 {
+			continue
+		}
+		dfsHelper(vis, i, g)
+	}
+}
+
 func main() {
 	g := NewGraph[int](5, 6)
 	g.AddEdge(0, 1, 1)
@@ -88,4 +112,6 @@ func main() {
 	g.printGraphAdjList()
 	fmt.Println()
 	g.BFSTraversal()
+	fmt.Println()
+	g.DFSTraversal()
 }
