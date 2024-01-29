@@ -1,4 +1,6 @@
-package main
+package dsa
+
+// package main
 
 import (
 	"fmt"
@@ -13,6 +15,10 @@ type Graph[T any] struct {
 	V   int
 	E   int
 	adj [][]*Node[T]
+}
+
+func (g *Graph[T]) Adj() [][]*Node[T] {
+	return g.adj
 }
 
 func NewGraph[T any](v int, e int) *Graph[T] {
