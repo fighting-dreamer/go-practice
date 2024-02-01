@@ -59,6 +59,22 @@ func kth_smallest_element(nums []int, n, k int) int {
 	return maxHeap.Top()
 }
 
+func kth_largest_element(nums []int, n, k int) int {
+	minHeap := priorityqueue.New[int](comparator.IntComparator)
+	for i := 0; i < k; i++ {
+		minHeap.Push(nums[i])
+	}
+
+	for i := k; i < n; i++ {
+		if nums[i] > minHeap.Top() {
+			minHeap.Pop()
+			minHeap.Push(nums[i])
+		}
+	}
+
+	return minHeap.Top()
+}
+
 func main() {
 	n, k := readInt(), readInt()
 
@@ -67,5 +83,5 @@ func main() {
 		nums[i] = readInt()
 	}
 	fmt.Println(kth_smallest_element(nums, n, k))
-
+	fmt.Println(kth_largest_element(nums, n, k))
 }
