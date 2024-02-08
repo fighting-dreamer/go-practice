@@ -44,7 +44,7 @@ func readChar() rune {
 func sub_set_sum(set []int, n, s int) bool {
 	dp := make([][]bool, n+1)
 	for i := 0; i < n; i++ {
-		dp[i] = make([]int, s+1)
+		dp[i] = make([]bool, s+1)
 	}
 	dp[0][0] = true
 	for i := 1; i < n+1; i++ {
