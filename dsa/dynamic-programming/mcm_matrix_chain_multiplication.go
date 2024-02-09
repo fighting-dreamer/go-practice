@@ -131,6 +131,47 @@ func mcm_memoization(nums []int, n int) int {
 	return dp[0][len(ms)-1]
 }
 
+func mcm_bottomUp(nums []int, n int) int {
+	ms := make([]pair.Pair, n-1)
+	for i := 0; i < n-1; i++ {
+		ms[i] = *pair.MakePair(nums[i], nums[i+1])
+	}
+
+	dp := make([][]int, n-1)
+	for i := 0; i < n-1; i++ {
+		dp[i] = make([]int, n-1)
+	}
+	for i := 0; i < n-1; i++ {
+		dp[i][i] = 0
+	}
+
+	// MCM approach :
+	// for each matrix's related computation, we need to know the info for smaller groupings.
+	// we try to find the mcm value for smaller length of consecutive matrices then use them in bottom up manner.
+	len_ms := n - 1
+
+	for l := 2; l <= len_ms; l++ {
+		for start := 0; start <= len_ms-l; start++ {
+			end := start + l - 1
+			res := math.MaxInt
+			for k := start; k < end; k++ {
+				temp := dp[start][k] + dp[k+1][end] + computeCost(ms[start].Front.(int), ms[k].Back.(int), ms[end].Back.(int))
+				res = min(res, temp)
+			}
+			dp[start][end] = res
+		}
+	}
+
+	// for i := 0; i < len_ms; i++ {
+	// 	for j := 0; j < len_ms; j++ {
+	// 		fmt.Print(dp[i][j], " ")
+	// 	}
+	// 	fmt.Println()
+	// }
+
+	return dp[0][len_ms-1]
+}
+
 func main() {
 	n := readInt()
 	nums := make([]int, n)
@@ -141,4 +182,5 @@ func main() {
 
 	fmt.Println(mcm(nums, n))
 	fmt.Println(mcm_memoization(nums, n))
+	fmt.Println(mcm_bottomUp(nums, n))
 }
