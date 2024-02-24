@@ -46,6 +46,7 @@ func readChar() rune {
 
 func find_maximum_non_overlapping_activities(activities []pair.Pair, n int) int {
 	slices.SortFunc(activities, func(a, b pair.Pair) int {
+		// sort by End time(ascending)
 		if a.Back.(int) == b.Back.(int) {
 			return 0
 		}
