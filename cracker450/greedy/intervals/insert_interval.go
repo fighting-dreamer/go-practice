@@ -80,7 +80,7 @@ func insert_interval(intervals []Interval, n int, newInterval Interval) []Interv
 				return res // we have inserted the interval.
 			} else {
 				//Scenrio : intervals[i].End < newInterval.Start
-				// basically, the new interval would be oming after few initial intervals.
+				// basically, the new interval would be coming after few initial intervals.
 				res = append(res, intervals[i])
 			}
 		}
