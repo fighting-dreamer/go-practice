@@ -64,7 +64,7 @@ func minimum_subset_difference(set []int, n int) int {
 	halfSum := sum/2 + (sum % 2)
 	dp := make([][]bool, 1+n)
 	for i := 0; i < 1+n; i++ {
-		dp[i] = maeke([]bool, 1+halfSum)
+		dp[i] = make([]bool, 1+halfSum)
 	}
 	dp[0][0] = true
 	for i := 1; i < 1+n; i++ {
