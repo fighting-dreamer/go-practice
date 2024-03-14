@@ -4,6 +4,7 @@ import (
 	"fmt"
 	"log"
 	"math"
+	"slices"
 )
 
 // star
@@ -63,6 +64,7 @@ func find_minimum_difference_element(nums []int, n, t int) int {
 	// STAR : When we get out of the loop, the start and end are the next elements to the key we were trying to find
 	// example : 2 4 6 8 10 11 13, w eare finding 12 in this, the start will point to 13 and end to 11(next nearest elements to key)
 	fmt.Println(start, end)
+
 	if start < n && start >= 0 && end < n && end >= 0 {
 		fmt.Println(nums[start], nums[end])
 	}

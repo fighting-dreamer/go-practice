@@ -78,6 +78,12 @@ func find_pivot_in_rotated_sorted_array(nums []int, n int) int {
 			} else if nums[mid] < nums[n-1] {
 				end = mid - 1
 			} else {
+				// nums[start] must also be equal to nums[mid]
+				// but the nums[end] could be either in first section or second.
+				// nums[mid] is equal to nums[n - 1]
+				// end'th element if > mid'th element => end'th element is in first half ==>
+				// else end'th element is is in the second half.
+				//
 				if nums[mid] > nums[end] {
 					start = mid
 				} else {

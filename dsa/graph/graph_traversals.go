@@ -1,4 +1,4 @@
-package dsa
+package main
 
 // package main
 
@@ -63,6 +63,7 @@ func (g *Graph[T]) printGraphAdjList() {
 }
 
 func (g *Graph[T]) BFSTraversal() {
+	// if it is added in queue => it is marked visited.
 	var q []int
 	vis := make([]bool, g.V)
 
@@ -85,6 +86,7 @@ func (g *Graph[T]) BFSTraversal() {
 }
 
 func dfsHelper[T any](vis []int, u int, g *Graph[T]) {
+	// one you reach to that node ==> mark it visited then.
 	vis[u] = 1
 
 	fmt.Println(u)
