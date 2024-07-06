@@ -9,6 +9,6 @@ Problem Type :
       2. finding max-(non-overlapping) intervals across axis :
          1. problem : scheduling meetings given just one room, max trains that can run without overlapping
          2. here we are trying to say for each overlapped intervals, we choose only one of them to schedule for meeting.
-      3. Merge overlapping intervals
+      3. Merge overlapping intervals : 
       4. Insert interval
-      5. 
+      5. minimum arrow to burst ballons : similar to merge intervals but we sort by end of interval and we dont udpate the current interval's end limit 

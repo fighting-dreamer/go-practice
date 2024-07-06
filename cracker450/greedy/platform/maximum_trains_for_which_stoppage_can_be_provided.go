@@ -53,6 +53,7 @@ func readChar() rune {
 
 func find_max_trains_that_can_run_without_overlapping(schs []Schedule, n int) int {
 	slices.SortFunc(schs, func(a, b Schedule) int {
+		// ascending order of departure.
 		if a.departure == b.departure {
 			return cmp.Compare(b.arrival, a.arrival)
 		}
@@ -60,7 +61,7 @@ func find_max_trains_that_can_run_without_overlapping(schs []Schedule, n int) in
 			return -1
 		}
 		return 1
-	}) // ascending order of departure.
+	})
 
 	cnt := 1
 	last := schs[0].departure

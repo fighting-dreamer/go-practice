@@ -5,6 +5,6 @@
    1. copy of slice
    2. append with nil/empty slice
 3. assignment of empty/nil map
-   1. range over a map and assignment in that loop : BAD
+   1. range over a map and assignment to update map in that same loop : BAD
 4. cmp.Ordered : comparable types : https://go.dev/ref/spec#Type_constraints
    1. custom comparable types

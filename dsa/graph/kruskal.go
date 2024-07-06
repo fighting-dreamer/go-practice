@@ -115,12 +115,6 @@ func union(par []int, u int, v int) {
 	}
 }
 
-go_min_heap
-priorityqueue.New[T](comparator.Reverse(func(a,b T)int {
-	return //ascending
-}))
-
-
 func kruskal(g *Graph[int]) (int, []Edge) {
 	par := make([]int, g.V)
 	for i := 0; i < g.V; i++ {

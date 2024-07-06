@@ -97,6 +97,9 @@ func computeWidth(index, n, r, l int) int {
 	// }else {
 	// 	l = l + 1
 	// }
+
+	// Look at the image: https://media.geeksforgeeks.org/wp-content/cdn-uploads/histogram1.png
+	// l = 1, r = 5, width = 5 - 1 - 1 = 3
 	return r - l - 1
 }
 
