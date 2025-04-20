@@ -6,9 +6,9 @@ import (
 )
 
 type Dependencies struct {
-	Config *Config
+	Config     *Config
 	otpService service.IOTPService
-	server server.IServer
+	server     server.IServer
 }
 
 func NewDependencies() *Dependencies {
@@ -16,17 +16,17 @@ func NewDependencies() *Dependencies {
 }
 
 func LoadDependecies() {
-	config:= LoadConfig()
 	dependencies := NewDependencies()
-	// add config
+	config := LoadConfig()
+	dependencies.Config = config
+	dependencies.addServices()
+	dependencies.addServer()
 }
 
 func (dep *Dependencies) addServer() {
-	dep.server = server.NewHttpServer(dep.Config.Port)
+	// dep.server = server.NewHttpServer(dep.Config.Port)
 }
 
 func (dep *Dependencies) addServices() {
-	dep.otpService = service.NewOTPService()
+	// dep.otpService = service.NewOTPService()
 }
-
-func 
