@@ -7,10 +7,19 @@ require (
 	github.com/go-redis/redis v6.15.9+incompatible
 	github.com/hashicorp/go-uuid v1.0.3
 	github.com/spf13/viper v1.20.1
+	github.com/stretchr/testify v1.10.0
 	go.uber.org/zap v1.27.0
 )
 
 require (
+	github.com/alicebob/gopher-json v0.0.0-20230218143504-906a9b012302 // indirect
+	github.com/davecgh/go-spew v1.1.1 // indirect
+	github.com/pmezard/go-difflib v1.0.0 // indirect
+	github.com/yuin/gopher-lua v1.1.1 // indirect
+)
+
+require (
+	github.com/alicebob/miniredis/v2 v2.34.0
 	github.com/bytedance/sonic v1.11.6 // indirect
 	github.com/bytedance/sonic/loader v0.1.1 // indirect
 	github.com/cloudwego/base64x v0.1.4 // indirect
