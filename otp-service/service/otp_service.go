@@ -23,15 +23,15 @@ type OTPOptions struct {
 }
 
 type IOTPService interface {
-	generateOTP(ctx context.Context, userInfo UserContext, optOptions OTPOptions) (string, string, error)
-	validateOTP(ctx context.Context, requestID string, otp string) (bool, error)
+	GenerateOTP(ctx context.Context, userInfo UserContext, optOptions OTPOptions) (string, string, error)
+	ValidateOTP(ctx context.Context, requestID string, otp string) (bool, error)
 }
 
 type OTPService struct {
-	db *repo.OTPRepo
+	db repo.IOTPRepo
 }
 
-func NewOTPService(db *repo.OTPRepo) IOTPService {
+func NewOTPService(db repo.IOTPRepo) IOTPService {
 	return &OTPService{
 		db: db,
 	}
@@ -43,7 +43,7 @@ func randomOTP(OTPOptions OTPOptions) string {
 	return strconv.FormatInt(otp, 10)
 }
 
-func (o *OTPService) generateOTP(ctx context.Context, userInfo UserContext, otpOptions OTPOptions) (string, string, error) {
+func (o *OTPService) GenerateOTP(ctx context.Context, userInfo UserContext, otpOptions OTPOptions) (string, string, error) {
 	otp := randomOTP(otpOptions)
 	requestID, _ := uuid.GenerateUUID()
 	err := o.db.SaveOTP(ctx, requestID, otp, 60) // otpOptions.TTLSeconds = 60 seconds default
@@ -53,7 +53,7 @@ func (o *OTPService) generateOTP(ctx context.Context, userInfo UserContext, otpO
 	return requestID, otp, nil
 }
 
-func (o *OTPService) validateOTP(ctx context.Context, requestID string, otp string) (bool, error) {
+func (o *OTPService) ValidateOTP(ctx context.Context, requestID string, otp string) (bool, error) {
 	otp, err := o.db.GetOTP(ctx, requestID)
 	if err != nil {
 		return false, err

@@ -7,6 +7,12 @@ import (
 	"github.com/go-redis/redis"
 )
 
+type IOTPRepo interface {
+	SaveOTP(context.Context, string, string, time.Duration) error
+	GetOTP(context.Context, string) (string, error)
+	DeleteOTP(context.Context, string) error
+}
+
 type OTPRepo struct {
 	redisClient *redis.Client
 }
