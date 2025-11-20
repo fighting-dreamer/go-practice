@@ -73,6 +73,18 @@ func deleteList(head *Node, val int) *Node {
 	return head
 }
 
+func reverseLinkList(head *Node) *Node {
+	var curr, prev, nnext *Node = head, nil, nil
+	for curr != nil {
+		nnext = curr.next
+		curr.next = prev
+		prev = curr
+		curr = nnext
+	}
+
+	return prev
+}
+
 func main() {
 	var head *Node = nil
 	n := rand.Intn(20)
@@ -87,5 +99,8 @@ func main() {
 	}
 	fmt.Println("to delete val : ", toDeleteVal)
 	head = deleteList(head, toDeleteVal)
+	printList(head)
+	head.next.next = nil
+	head = reverseLinkList(head)
 	printList(head)
 }
