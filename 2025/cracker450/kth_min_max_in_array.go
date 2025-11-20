@@ -66,7 +66,7 @@ func find_kth_min_max_in_array(arr []int, n, k int) (int, int) {
 func main() {
 	n := readInt()
 	k := readInt()
-	fmt.Println("n : ", n, "k : ", k);
+	fmt.Println("n : ", n, "k : ", k)
 	arr := make([]int, n)
 	for i := 0; i < n; i++ {
 		arr[i] = readInt()
