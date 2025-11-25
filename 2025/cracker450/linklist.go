@@ -39,7 +39,7 @@ func printList(head *Node) {
 }
 
 func getListValueAtIndex(head *Node, index int) int {
-	if (index ==0) {
+	if index == 0 {
 		return head.val
 	}
 	for index != 0 && head.next != nil {
