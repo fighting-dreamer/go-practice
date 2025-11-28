@@ -15,11 +15,11 @@ func readInt() int {
 }
 
 func gcd(a, b int) int {
-	if (a== 0 || b == 0) {
+	if a == 0 || b == 0 {
 		return 0
 	}
 	for b != 0 {
-		a, b = b, a % b
+		a, b = b, a%b
 	}
 	return a
 }
@@ -28,5 +28,5 @@ func main() {
 	a := readInt()
 	b := readInt()
 
-	fmt.Printf("GCD of %d, %d : %d", a, b, gcd(a,b))
+	fmt.Printf("GCD of %d, %d : %d", a, b, gcd(a, b))
 }

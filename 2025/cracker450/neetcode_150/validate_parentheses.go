@@ -82,7 +82,6 @@ func validateParentheses(s string) bool {
 	return st.Empty() // gone through all string but still have some open parentheses not matching
 }
 
-
 func main() {
 	s := readString()
 	fmt.Println(s)

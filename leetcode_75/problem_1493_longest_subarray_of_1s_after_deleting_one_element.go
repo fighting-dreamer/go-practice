@@ -27,7 +27,7 @@ func longestSubarray(nums []int) int {
 				i++
 			}
 		}
-		res = max(res, countOnes - 1)
+		res = max(res, countOnes-1)
 	}
 
 	return res

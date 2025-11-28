@@ -173,7 +173,7 @@ func calcEquation(equations [][]string, values []float64, queries [][]string) []
 
 		if distance[v][u] != -1 {
 			res[i] = distance[v][u]
-		}else {
+		} else {
 			res[i] = -1.0
 		}
 	}

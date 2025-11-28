@@ -49,16 +49,16 @@ func readChar() rune {
 }
 
 func move_zeros_to_last(arr []int, n int) {
-	i, j := 0, n - 1
+	i, j := 0, n-1
 	for i < j {
 		// move till you encounter zero
-		for ;i < j; i++ {
+		for ; i < j; i++ {
 			if arr[i] == 0 {
 				break
 			}
 		}
 		// move till you encounter non-zero
-		for ;j > i; j-- {
+		for ; j > i; j-- {
 			if arr[j] != 0 {
 				break
 			}
@@ -73,7 +73,7 @@ func move_zeros_to_last(arr []int, n int) {
 
 func main() {
 	n := readInt()
-	arr := make([]int, n )
+	arr := make([]int, n)
 
 	for i := 0; i < n; i++ {
 		arr[i] = readInt()

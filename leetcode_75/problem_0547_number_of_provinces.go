@@ -17,7 +17,7 @@ func do_bfs(src int, vis []bool, isConnected [][]int) {
 		}
 	}
 
-	return 
+	return
 }
 
 func findNumberOfProvinces(isConnected [][]int) int {

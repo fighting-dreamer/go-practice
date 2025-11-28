@@ -11,16 +11,16 @@ func readInt() int {
 	if err != nil {
 		log.Fatal("couln't read int")
 	}
-	return n;
+	return n
 }
 
 func generate_all_subarray(arr []int, n int) {
 	// sub array : contigous segments of diff lengths
 	for l := 1; l <= n; l++ {
-		fmt.Println("---------------",l,"--------------------")
-		for i := 0; i <= n - l; i++ {
+		fmt.Println("---------------", l, "--------------------")
+		for i := 0; i <= n-l; i++ {
 			fmt.Println("Starting from index : ", i, " for l : ", l)
-			for j := i; j < i + l; j++ {
+			for j := i; j < i+l; j++ {
 				fmt.Printf("%d ", arr[j])
 			}
 			fmt.Println()
@@ -39,7 +39,7 @@ func print_array(arr []int, n int) {
 func main() {
 
 	n := readInt()
-	arr := make([]int, n )
+	arr := make([]int, n)
 	for i := 0; i < n; i++ {
 		arr[i] = readInt()
 	}

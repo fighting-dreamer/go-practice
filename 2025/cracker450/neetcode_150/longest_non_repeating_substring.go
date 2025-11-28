@@ -39,9 +39,8 @@ func readChar() rune {
 func longest_non_repeating_substring(s string) string {
 	start := 0
 	end := 0
-		
-}
 
+}
 
 func main() {
 	s := readString()

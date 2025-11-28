@@ -276,7 +276,7 @@ func TopologicalSortDirectedGraph(g *Graph[int]) []int {
 	for len(q) > 0 {
 		front := q[0]
 		q = q[1:]
-		
+
 		// process the node ie
 		res = append(res, front)
 		// for every edge from front to X, decrement the indegree for X

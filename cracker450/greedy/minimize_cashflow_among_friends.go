@@ -159,7 +159,7 @@ func find_min_transaction(balanceMap map[int]int) int {
 		}
 		res++
 	}
-	
+
 	return res
 }
 

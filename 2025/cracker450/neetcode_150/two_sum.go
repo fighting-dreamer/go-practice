@@ -27,15 +27,15 @@ func sort_array(arr []int, n int) {
 }
 
 func two_sum(arr []int, n int, k int) (int, int) {
-	i, j := 0, n - 1
+	i, j := 0, n-1
 	for i < j {
 		curr := arr[i] + arr[j]
 		if curr == k {
 			return i, j
-		}else {
+		} else {
 			if curr > k {
 				j--
-			}else {
+			} else {
 				i++
 			}
 		}

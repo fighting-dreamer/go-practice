@@ -33,7 +33,7 @@ func reverse_array(arr []int, n int) {
 
 func rotate_array(arr []int, n int, k int) {
 	reverse_array(arr[:k], k)
-	reverse_array(arr[k:], n - k)
+	reverse_array(arr[k:], n-k)
 	reverse_array(arr, n)
 }
 

@@ -1,13 +1,13 @@
 package main
 
 type Node struct {
-	val int
+	val  int
 	next *Node
 }
 
 func newNode(val int) *Node {
-	return &Node {
-		val: val,
+	return &Node{
+		val:  val,
 		next: nil,
 	}
 }
@@ -60,5 +60,5 @@ func readChar() rune {
 }
 
 func merge_linkList(head1 *Node, head2 *Node) *Node {
-	
+
 }

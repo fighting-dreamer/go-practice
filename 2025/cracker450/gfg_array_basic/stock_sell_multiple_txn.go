@@ -8,7 +8,7 @@ import (
 func stock_sell_multiple_txn(prices []int, n int) int {
 	res := 0
 	for i := 1; i < n; i++ {
-		temp := prices[i] - prices[i - 1]
+		temp := prices[i] - prices[i-1]
 		if temp > 0 {
 			res += temp
 		}
@@ -59,7 +59,6 @@ func readChar() rune {
 	return r
 }
 
-
 func main() {
 	n := readInt()
 	prices := make([]int, n)
@@ -69,5 +68,5 @@ func main() {
 
 	print_array(prices, n)
 	fmt.Println("Max profit : ", stock_sell_multiple_txn(prices, n))
-	
+
 }
