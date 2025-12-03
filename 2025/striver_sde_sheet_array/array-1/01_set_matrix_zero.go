@@ -56,7 +56,7 @@ func set_matrix_zero(mat [][]int, n, m int) {
 
 	for i := 0; i < n; i++ {
 		if mat[i][0] == 0 {
-			is_first_col_zero =true
+			is_first_col_zero = true
 			break
 		}
 	}
