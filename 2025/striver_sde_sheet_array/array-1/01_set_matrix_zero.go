@@ -51,23 +51,16 @@ func print_matrix(mat [][]int, n, m int) {
 }
 
 func set_matrix_zero(mat [][]int, n, m int) {
-	// if first tow or col are zero, we store them in a variable.
-	// if any other cell is zero, we mark the corresponding matrix[i][0] and matrix[0][j] as zero
-	// we go through first row and if we encounter a zero say mat[i][0] is zero => ith row is zero for all columns
-	// mat[0][j] is zero => jth column is zero for all rows
-	// then we look at first row and column respectively
-	// if is_first_row_zero is true => mat[0][j] for all j is zero (0-th row's all columns or cells are zero)
-	// if is_first_col_zero is true => mat[i][0] ofr all i is zero (0-th column's all rows or cell are zero)
-	
-	// pass 1 :
 	is_first_col_zero := false
 	is_first_row_zero := false
+
 	for i := 0; i < n; i++ {
 		if mat[i][0] == 0 {
-			is_first_col_zero = true
-			break;
+			is_first_col_zero =true
+			break
 		}
 	}
+
 	for j := 0; j < m; j++ {
 		if mat[0][j] == 0 {
 			is_first_row_zero = true
@@ -84,19 +77,11 @@ func set_matrix_zero(mat [][]int, n, m int) {
 		}
 	}
 
-	// pass 2 : setting zero
-	for i := 0; i < n; i++ {
-		// if ith row is zero => all column values for ith row are zero
-		if mat[i][0] == 0 {
-			for j := 0; j < m; j++ {
-				mat[i][j] = 0
-			}
-		}
-	}
+	// pass 2
 
-	for j := 0; j < m; j++ {
-		if mat[0][j] == 0 {
-			for i := 0; i < n; i++ {
+	for i := 1; i < n; i++ {
+		for j := 1; j < m; j++ {
+			if mat[i][0] == 0 || mat[0][j] == 0 {
 				mat[i][j] = 0
 			}
 		}
@@ -140,7 +125,7 @@ func set_matrix_zero_2(mat [][]int, n int, m int) {
 		}
 	}
 
-	if (mat[0][0] == 0) {
+	if mat[0][0] == 0 {
 		for j := 0; j < m; j++ {
 			mat[0][j] = 0 // marking all cells of row-0 as zero
 		}
@@ -151,6 +136,18 @@ func set_matrix_zero_2(mat [][]int, n int, m int) {
 			mat[i][0] = 0 // marking all cells of col-0 as zero
 		}
 	}
+}
+
+func copy_matrix(mat [][]int, n int, m int) [][]int {
+	cm := make([][]int, n)
+	for i := 0; i < n; i++ {
+		cm[i] = make([]int, m)
+		for j := 0; j < m; j++ {
+			cm[i][j] = mat[i][j]
+		}
+	}
+
+	return cm
 }
 
 func main() {
@@ -164,8 +161,16 @@ func main() {
 			mat[i][j] = readInt()
 		}
 	}
+	fmt.Println("----------------------------------------")
+	fmt.Println("----------------------------------------")
 
 	print_matrix(mat, n, m)
-	set_matrix_zero(mat, n, m)
-	print_matrix(mat, n, m)
+	fmt.Println()
+	mat1 := copy_matrix(mat, n, m)
+	set_matrix_zero(mat1, n, m)
+	print_matrix(mat1, n, m)
+	fmt.Println("----------------------------------------")
+	mat2 := copy_matrix(mat, n, m)
+	set_matrix_zero_2(mat2, n, m)
+	print_matrix(mat2, n, m)
 }
