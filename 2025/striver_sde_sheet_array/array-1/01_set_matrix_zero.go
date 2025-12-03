@@ -51,61 +51,104 @@ func print_matrix(mat [][]int, n, m int) {
 }
 
 func set_matrix_zero(mat [][]int, n, m int) {
-	// for any i, j, if we encounter zero, we can mark mat[i][0] and mat[0][j] as zero.
-	// special case is for first row or first column : it will mark mat[0][0] as zero,
-	// but it might be only row or only column was zero, so
-	// to solve for that : we keep a single variable for say just column
-	// pass 1.1 : go through matrix, for first column, check if you saw any zero, set is_first_col_zero as true
-	// pass 1.2 : go through rest of matrix, any i, j is zero => mat[i][0] and mat[0][j] is zero.
-	// pass 2 : for all rows or colum with zero in first frow or col are marked zero in matrix,
-	// then we check if is_first_col_zero, and accordingly mark first col zero if its true.
-
-	// if mat[0][0] was actually zero => is_first_col_zero => true and mat[0][0] is zero ==> row zero is also zero
-	// if first row is having zero(except mat[0][0]) => column will have zero but is_first_col_zero will be false
-
+	// if first tow or col are zero, we store them in a variable.
+	// if any other cell is zero, we mark the corresponding matrix[i][0] and matrix[0][j] as zero
+	// we go through first row and if we encounter a zero say mat[i][0] is zero => ith row is zero for all columns
+	// mat[0][j] is zero => jth column is zero for all rows
+	// then we look at first row and column respectively
+	// if is_first_row_zero is true => mat[0][j] for all j is zero (0-th row's all columns or cells are zero)
+	// if is_first_col_zero is true => mat[i][0] ofr all i is zero (0-th column's all rows or cell are zero)
+	
 	// pass 1 :
 	is_first_col_zero := false
+	is_first_row_zero := false
 	for i := 0; i < n; i++ {
 		if mat[i][0] == 0 {
 			is_first_col_zero = true
+			break;
+		}
+	}
+	for j := 0; j < m; j++ {
+		if mat[0][j] == 0 {
+			is_first_row_zero = true
+			break
 		}
 	}
 
-	for i := 0; i < n; i++ {
-		// rest of columns
-		for j := 0; j < m; j++ {
+	for i := 1; i < n; i++ {
+		for j := 1; j < m; j++ {
 			if mat[i][j] == 0 {
 				mat[i][0] = 0
 				mat[0][j] = 0
 			}
 		}
 	}
-	// pass 2 :
-	for i := 1; i < n; i++ {
+
+	// pass 2 : setting zero
+	for i := 0; i < n; i++ {
+		// if ith row is zero => all column values for ith row are zero
 		if mat[i][0] == 0 {
-			for j := 1; j < m; j++ {
+			for j := 0; j < m; j++ {
 				mat[i][j] = 0
 			}
 		}
 	}
 
-	for j := 1; j < m; j++ {
+	for j := 0; j < m; j++ {
 		if mat[0][j] == 0 {
-			for i := 1; i < n; i++ {
+			for i := 0; i < n; i++ {
 				mat[i][j] = 0
 			}
 		}
 	}
-	// is first row suppose to be zero => if mat[0][0] is zero
-	if mat[0][0] == 0 {
+	if is_first_col_zero {
+		for i := 0; i < n; i++ {
+			mat[i][0] = 0
+		}
+	}
+
+	if is_first_row_zero {
 		for j := 0; j < m; j++ {
 			mat[0][j] = 0
 		}
 	}
-	// is first colum zero
+}
+
+func set_matrix_zero_2(mat [][]int, n int, m int) {
+	is_first_col_zero := false
+
+	// pass 1 : marking
+	for row_i := 0; row_i < n; row_i++ {
+		if mat[row_i][0] == 0 {
+			is_first_col_zero = true
+			// row_i is zero then that row will be zero later.
+		}
+		for col_j := 1; col_j < m; col_j++ {
+			if mat[row_i][col_j] == 0 {
+				mat[row_i][0] = 0
+				mat[0][col_j] = 0
+			}
+		}
+	}
+
+	// pass 2 : set matrix zero
+	for i := 1; i < n; i++ {
+		for j := 1; j < m; j++ {
+			if mat[i][0] == 0 || mat[0][j] == 0 {
+				mat[i][j] = 0
+			}
+		}
+	}
+
+	if (mat[0][0] == 0) {
+		for j := 0; j < m; j++ {
+			mat[0][j] = 0 // marking all cells of row-0 as zero
+		}
+	}
+
 	if is_first_col_zero {
 		for i := 0; i < n; i++ {
-			mat[i][0] = 0
+			mat[i][0] = 0 // marking all cells of col-0 as zero
 		}
 	}
 }
