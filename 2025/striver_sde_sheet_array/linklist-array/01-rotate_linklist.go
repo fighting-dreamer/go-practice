@@ -74,45 +74,23 @@ func printLinklist(head *Node) {
 	fmt.Println()
 }
 
-func reverse_k_nodes_in_linklist(head *Node, k int) (*Node, *Node) {
-	if head == nil {
-		return nil, nil
+func rotateLinklist(head *Node, k int) *Node {
+	start := head
+	var old *Node = nil
+	for i := 0; i < k; i++ {
+		old = head
+		head = head.next
 	}
-	var prev *Node = nil
-	var curr *Node = head
-	var next *Node = nil
-	for k > 0 && curr != nil {
-		next = curr.next
-		curr.next = prev
+	old.next = nil
 
-		prev = curr
-		curr = next
+	//---------//
 
-		k--
+	curr := head
+	for curr != nil {
+		old = curr
+		curr = curr.next
 	}
-
-	return prev, curr
-}
-
-func reverse_in_group_of_k(head *Node, k int) *Node {
-	// After first K nodes reversal, the head will be updated
-	// the first node of original list(prevStart) will be the last of first reversal of K nodes
-	// the next to this prevStart is suppose to be the head of reversal of next K nodes.
-
-	start, end := reverse_k_nodes_in_linklist(head, k)
-	prevStart := head
-	head = start // new head of list
-	start = end  // moving to K+1th node
-
-	for start != nil {
-		oldStart := start
-		start, end = reverse_k_nodes_in_linklist(start, k)
-
-		prevStart.next = start // connecting previous reversed group to current one.
-		prevStart = oldStart
-
-		start = end
-	}
+	old.next = start
 
 	return head
 }
@@ -121,10 +99,11 @@ func main() {
 	s := readString()
 	k := readInt()
 	var head *Node = nil
-	for i := len(s) - 1; i >= 0; i-- {
+	for i := 0; i < len(s); i++ {
 		head = addLinklist(head, int(s[i])-int('0'))
 	}
+
 	printLinklist(head)
-	head = reverse_in_group_of_k(head, k)
+	head = rotateLinklist(head, k)
 	printLinklist(head)
 }
