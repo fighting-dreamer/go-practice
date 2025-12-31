@@ -10,6 +10,7 @@ func readInt() int {
 	_, err := fmt.Scanf("%d", &n)
 	if err != nil {
 		log.Fatal("could not read input number", err)
+	}
 	return n
 }
 
@@ -17,7 +18,7 @@ func readString() string {
 	var s string
 	_, err := fmt.Scan(&s)
 	if err != nil {
-		log.Fatal("could not read input string", err)k
+		log.Fatal("could not read input string", err)
 	}
 	return s
 }
@@ -40,26 +41,24 @@ func readChar() rune {
 	return r
 }
 
-func find_max_struct_height(nums [][]int, n int) int {
-	height := func(s []int) int {
-		return s[0]*12 + s[1]
+func print_all_unique_subsets_if_Array_have_duplicates_helper(arr []int, n int, currIndex int, sumTillNow int, arrTillNow []int, res *[][]int) {
+	if currIndex == n {
+		return 
 	}
-	res := 0
-	for i := 1; i < n; i++ {
-		if height(nums[res]) < height(nums[i]) {
-			res = i
-		}
-	}
+}
 
-	return height(nums[res])
+func print_all_unique_subsets_if_Array_have_duplicates(arr []int, n int) [][]int {
+	res := [][]int{}
+	print_all_unique_subsets_if_Array_have_duplicates_helper(arr, n, 0, 0, &res)
+	return res
 }
 
 func main() {
 	n := readInt()
-	nums := make([][]int, n)
+	arr := make([]int, n)
 	for i := 0; i < n; i++ {
-		nums[i] = []int{readInt(), readInt()}
+		arr[i] = readInt()
 	}
 
-	fmt.Println(find_max_struct_height(nums, n))
+	print_all_unique_subsets_if_Array_have_duplicates(arr, n)
 }

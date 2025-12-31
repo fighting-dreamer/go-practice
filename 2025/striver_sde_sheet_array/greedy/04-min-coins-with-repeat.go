@@ -108,6 +108,42 @@ func non_canonical_CointSystem(coins []int, n int, V int) (int, []int, int) {
 	return dp[n][V], []int{}, 0
 }
 
+func non_canonical_coin_minimum_recursive_helper(coins []int, n int, V int, coin_i int, cap_j int) int {
+	// if capacity is zero => we need zero coins.
+	// if capacity is non-zero but there are no coins => int-max or infinity.
+	// if capacity > coin_i's value => we can take a coin possibly
+
+	if cap_j == 0 {
+		return 0
+	}
+	if coin_i == 0 {
+		if cap_j%coins[coin_i] == 0 {
+			return cap_j / coins[coin_i]
+		} else {
+			return math.MaxInt
+		}
+	}
+
+	coinsIfNotTaken := non_canonical_coin_minimum_recursive_helper(coins, n, V, coin_i-1, cap_j)
+	if cap_j >= coins[coin_i] {
+		coinsIfTaken_partial := non_canonical_coin_minimum_recursive_helper(coins, n, V, coin_i, cap_j-coins[coin_i])
+		coinsIfTaken := 0
+		if coinsIfTaken_partial == math.MaxInt {
+			coinsIfTaken = math.MaxInt
+		} else {
+			coinsIfTaken = 1 + coinsIfTaken_partial
+		}
+
+		return min(coinsIfNotTaken, coinsIfTaken)
+	}
+
+	return coinsIfNotTaken
+}
+
+func non_canonical_coin_minimum_recursive(coins []int, n int, V int) int {
+	return non_canonical_coin_minimum_recursive_helper(coins, n, V, n-1, V)
+}
+
 func main() {
 	n := readInt()
 	V := readInt()
@@ -117,4 +153,5 @@ func main() {
 	}
 
 	fmt.Println(non_canonical_CointSystem(coins, n, V))
+	fmt.Printf("non_canonical_coin_minimum_recursive(coins, n, V): %v\n", non_canonical_coin_minimum_recursive(coins, n, V))
 }
