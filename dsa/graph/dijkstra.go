@@ -95,6 +95,69 @@ func (g *Graph[T]) printGraphAdjList() {
 	}
 }
 
+func dijkstra_WITH_COUNT_OPTIMISATION(g *Graph[int], source int) map[int]int {
+	distanceMapRes := map[int]int{}
+
+	// Optimization: Use a more specific comparison to avoid unnecessary overhead
+	minHeap := priorityqueue.New[pair.Pair](func(a, b pair.Pair) int {
+		aDist := a.Back.(int)
+		bDist := b.Back.(int)
+		if aDist < bDist {
+			return -1
+		} else if aDist > bDist {
+			return 1
+		}
+		return 0
+	})
+
+	distance := make([]int, g.V)
+	vis := make([]bool, g.V) // Changed to bool for clarity
+	for i := 0; i < g.V; i++ {
+		distance[i] = -1 // Representing Infinity
+	}
+
+	distance[source] = 0
+	minHeap.Push(*pair.MakePair(source, 0))
+
+	visitedCount := 0
+
+	for !minHeap.Empty() {
+		top := minHeap.Pop()
+		u := top.Front.(int)
+		distU := top.Back.(int)
+
+		// Optimization: Skip if we found a better path while this was in the queue
+		if vis[u] {
+			continue
+		}
+
+		vis[u] = true
+		visitedCount++
+
+		// EARLY EXIT: If we've finalized all vertices, stop processing the heap
+		if visitedCount == g.V {
+			break
+		}
+
+		for _, edge := range g.Adj()[u] {
+			v := edge.Id
+			weight := edge.Wt
+
+			// Standard relaxation step
+			newDist := distU + weight
+			if distance[v] == -1 || newDist < distance[v] {
+				distance[v] = newDist
+				minHeap.Push(*pair.MakePair(v, newDist))
+			}
+		}
+	}
+
+	for i := 0; i < g.V; i++ {
+		distanceMapRes[i] = distance[i]
+	}
+	return distanceMapRes
+}
+
 func dijkstra(g *Graph[int], source int) map[int]int {
 	distanceMapRes := map[int]int{}
 	minHeap := priorityqueue.New[pair.Pair](func(a, b pair.Pair) int {
@@ -117,12 +180,12 @@ func dijkstra(g *Graph[int], source int) map[int]int {
 
 	distance[source] = 0
 	minHeap.Push(*pair.MakePair(source, 0))
-	count := 0
+	// count := 0
 	for !minHeap.Empty() { // must loop till minHeap is empty coz there is possibility of some node coming in queue twice and have min distances or getting processed twice, we can eliminate that using "vis" visited flag filter
 		top := minHeap.Pop()
 		u := top.Front.(int)
-		count++
-		fmt.Println(count, distance, u, vis[u])
+		// count++
+		// fmt.Println(count, distance, u, vis[u])
 		if vis[u] == 1 {
 			continue
 		}
@@ -139,7 +202,7 @@ func dijkstra(g *Graph[int], source int) map[int]int {
 		}
 	}
 
-	fmt.Println(count)
+	// fmt.Println(count)
 	for i := 0; i < g.V; i++ {
 		distanceMapRes[i] = distance[i]
 	}
