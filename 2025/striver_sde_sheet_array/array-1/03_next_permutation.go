@@ -107,6 +107,7 @@ func next_permutation(arr []int, n int) {
 		if arr[i] < arr[i+1] {
 			swap(arr, i, next_greater_element(arr, i, n))
 			reverse(arr, i+1, n-1)
+			return
 		}
 	}
 }

@@ -6,7 +6,8 @@ sources :
 
 1. stack questions (Aditya Verma): https://www.youtube.com/watch?v=P1bAPZg5uaE&list=PL_z_8CaSLPWdeOezg68SKkeLN4-T_jNHd
 2. binary search (Striver) : https://www.youtube.com/playlist?list=PLgUwDviBIf0pMFMWuuvDNMAkoQFi-h0ZF
-3. 
+3. DP (striver) : https://www.youtube.com/playlist?list=PLbgVysG3YYf1vPn2OO1pNrJfHGQXydxX7
+4. 
 -----
 
 1. stack
@@ -72,19 +73,42 @@ sources :
       1.  FLOYD-WARSHALL 
 4. dynamic programming : 
    1. 1D DP
-      1. frong jump, can jump from 1 or 2 position behind.
+      1. frong jump, climibing stairs
+      2. house robber
+      3. 
    2. 2D DP
+      1. ninja-training : IMP
+      2. unbounded knapsack
+      3. bounded knapsack
+      4. 0-1 knapsack
    3. 3D DP
-   4. 
+   4. dp::PATTERN:DP on Grids : https://www.youtube.com/watch?v=sdE0A2Oxofw&list=PLbgVysG3YYf1vPn2OO1pNrJfHGQXydxX7&index=8
+      1. count paths
+      2. count paths with obstabcles
+      3. minimum path sum
+      4. max path sum(under conditions)
+      5. triangle problem
+      6. variable stariting and variable ending point
+      7. 
+   5. dp::PATTERN::house-robber : 
 5. sliding window
 6. linklist
 7. array::PATTERN::interval related
 8. array::PATTERN::stock buy-sell related
 9.  array::PATTERN::2_sum_and_4_sum
 10. binary trees
+    1. making a binary tree from array
+    2. go to certain node based on index
+    3.  
 11. binary search tree
 12. heap
 13. backtracking
 14. implementation
     1.  sort a stack using stack APIs
     2.  min stack, Order(1) space : https://www.youtube.com/watch?v=ZvaRHYYI0-4&list=PL_z_8CaSLPWdeOezg68SKkeLN4-T_jNHd&index=11
+    3. Permutations
+       1. next permutation of array
+          1. all unique
+          2. some duplicates
+       2. print all permutations of string
+    4. Combinations

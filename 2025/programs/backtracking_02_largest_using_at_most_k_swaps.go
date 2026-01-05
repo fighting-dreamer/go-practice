@@ -85,6 +85,8 @@ func largest_number_with_at_most_k_swaps(arr []int, k int, n int) {
 	largest_number_with_at_most_k_swaps_helper(arr, 0, k, n)
 }
 
+// does not work : 7 5 9 9, k = 2
+// res : 9 9 7 5, op:(0,2),(1,3)
 func main() {
 	n := readInt()
 	k := readInt()
