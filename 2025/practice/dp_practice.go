@@ -4,6 +4,7 @@ import (
 	"fmt"
 	"log"
 	"math"
+	"slices"
 )
 
 func readInt() int {
@@ -548,6 +549,112 @@ func print_shortes_common_supersequence() {
 	print_shortest_common_supersequence_code(s1, s2)
 }
 
+func minimum_insertions_to_make_string_palindrome_code(s string) int {
+	s1 := s
+	reverseS := make([]rune, len(s))
+	copy(reverseS, []rune(s))
+	slices.Reverse(reverseS)
+
+	res := len(s) - lcs_code(s1, string(reverseS))
+	return res
+}
+
+func minimum_insertions_to_make_string_palindrome() {
+	s := readString()
+	fmt.Printf("minimum_insertions_to_make_string_palindrome_code(s): %v\n", minimum_insertions_to_make_string_palindrome_code(s))
+}
+
+// ------------------------------- lcs based : END ----------
+
+// ------------------------------- matrix multiplication chain based : START ----------
+
+func mcm_code(arr []int, n int) int {
+	dp := make([][]int, n)
+	for i := 0; i < n; i++ {
+		dp[i] = make([]int, n)
+	}
+
+	// for length of section to be 2 upto n
+	for l := 2; l <= n; l++ {
+		// starting section from index i = 0 upto n - len
+		for i := 0; i < n-l; i++ {
+			dp[i][i+l] = math.MaxInt
+			for k := i + 1; k < i+l; k++ {
+				cost := dp[i][k] + dp[k][i+l] + arr[i]*arr[k]*arr[i+l]
+				dp[i][i+l] = min(dp[i][i+l], cost)
+			}
+		}
+	}
+
+	return dp[0][n-1]
+}
+
+func mcm() {
+	n := readInt()
+	arr := make([]int, n)
+
+	for i := 0; i < n; i++ {
+		arr[i] = readInt()
+	}
+
+	fmt.Printf("mcm_code(arr, n): %v\n", mcm_code(arr, n))
+}
+
+func egg_dropping_memoization_code(e int, f int, m map[[2]int]int) int {
+	if e == 0 {
+		m[[2]int{e, f}] = math.MaxInt
+		return m[[2]int{e, f}]
+	}
+	if e == 1 || f == 1 {
+		m[[2]int{e, f}] = f
+		return f
+	}
+	if v, ok := m[[2]int{e, f}]; ok {
+		return v
+	}
+
+	res := math.MaxInt
+	for i := 1; i <= f; i++ {
+		temp := 1 + max(
+			egg_dropping_memoization_code(e-1, i-1, m),
+			egg_dropping_memoization_code(e, f-i, m))
+		res = min(res, temp)
+	}
+	m[[2]int{e, f}] = res
+	return m[[2]int{e, f}]
+}
+
+func egg_dropping_code(no_of_eggs int, floors int) int {
+	if no_of_eggs == 0 {
+		return -1 // infinite
+	}
+	if no_of_eggs == 1 {
+		return floors
+	}
+	if floors <= 1 {
+		return floors
+	}
+
+	// we choose kth floor to be probably giving best answer
+	// at kth floor, two scenarios : either egg break or does not break
+	// if break : the problem is to be solved with e-1 eggs and for k - 1 floors
+	// if not break : we have to solve problem for e eggs, f - k floors
+
+	m := map[[2]int]int{}
+
+	return egg_dropping_memoization_code(no_of_eggs, floors, m)
+}
+
+func egg_dropping() {
+	// minimize the number of attempts
+	n := readInt()
+	f := readInt()
+
+	fmt.Printf("egg_dropping_code(n, f): %v\n", egg_dropping_code(n, f))
+}
+
+// ------------------------------- matrix multiplication chain based : END ----------
+
 func main() {
 	// _01_knapsack()
 	// subset_problem()
@@ -563,4 +670,12 @@ func main() {
 	// longest_common_substring() // best
 	// shortest_common_supersequence() = n + m - lcs_value
 	// printing_shortest_common_supersequence() // best
+	// minimum_insertions_to_make_string_palindrome()
+
+	// mcm()
+	// palindrome_partitioning() // not done, good
+	// egg_dropping() // best
+
+	// stock_buy_sell_
+
 }
