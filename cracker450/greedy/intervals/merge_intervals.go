@@ -53,6 +53,36 @@ func isOverlapping(a, b Interval) bool {
 		(b.Start <= a.End && b.Start >= a.Start)
 }
 
+func merge_intervals_IMPROVED(intervals []Interval) []Interval {
+	if len(intervals) <= 1 {
+		return intervals
+	}
+
+	// 1. Sort by Start Time
+	slices.SortFunc(intervals, func(a, b Interval) int {
+		return cmp.Compare(a.Start, b.Start)
+	})
+
+	res := []Interval{}
+	curr := intervals[0]
+
+	for i := 1; i < len(intervals); i++ {
+		// If the next interval starts before or exactly when the current ends
+		if intervals[i].Start <= curr.End {
+			// Merge: Start stays the same (due to sorting), End is the max of both
+			curr.End = max(curr.End, intervals[i].End)
+		} else {
+			// No overlap: Push current and move to the next
+			res = append(res, curr)
+			curr = intervals[i]
+		}
+	}
+
+	// Don't forget the last tracked interval
+	res = append(res, curr)
+	return res
+}
+
 func merge_intervals(intervals []Interval, n int) []Interval {
 	slices.SortFunc(intervals, func(a, b Interval) int {
 		return cmp.Compare(a.Start, b.Start) // sorting by start time, earlier the interval come, the better.
@@ -87,7 +117,7 @@ func main() {
 			End:   readInt(),
 		}
 	}
-
+	// check : merge_intervals_IMPROVED()
 	intervals = merge_intervals(intervals, n)
 	fmt.Println(intervals)
 }

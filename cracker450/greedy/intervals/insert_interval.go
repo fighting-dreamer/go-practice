@@ -48,6 +48,35 @@ func readChar() rune {
 	return r
 }
 
+func insert_interval_IMPROVED(intervals []Interval, newInterval Interval) []Interval {
+	res := make([]Interval, 0)
+	i := 0
+	n := len(intervals)
+
+	// Phase 1: Add all intervals that come before the new interval
+	for i < n && intervals[i].End < newInterval.Start {
+		res = append(res, intervals[i])
+		i++
+	}
+
+	// Phase 2: Merge overlapping intervals
+	// We check if the current interval starts before the newInterval ends
+	for i < n && intervals[i].Start <= newInterval.End {
+		newInterval.Start = min(newInterval.Start, intervals[i].Start)
+		newInterval.End = max(newInterval.End, intervals[i].End)
+		i++
+	}
+	// Append the merged result
+	res = append(res, newInterval)
+
+	// Phase 3: Add the remaining intervals
+	if i < n {
+		res = append(res, intervals[i:]...)
+	}
+
+	return res
+}
+
 func insert_interval(intervals []Interval, n int, newInterval Interval) []Interval {
 	// we know the intervals are sorted by the start time
 	// else we sort them :
@@ -104,6 +133,7 @@ func main() {
 		}
 	}
 
+	//check : insert_interval_IMPROVED()
 	intervals = insert_interval(intervals, n, newInterval)
 	fmt.Println(intervals)
 }

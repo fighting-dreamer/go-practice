@@ -269,7 +269,7 @@ func rod_cutting_code(larr []int, parr []int, n int, rodLen int) int {
 			if larr[i-1] <= j {
 				// length of rod (ie. j) is greater than i-th section : larr[i - 1], the it here is not same as ith that;s why i - 1
 				// we an also re-choose the same rod segment so we are using dp[i][j - larr[i - 1]], notice the i in the first seelction
-				dp[i][j] = max(dp[i-1][j], dp[i][j-larr[i-1]])
+				dp[i][j] = max(dp[i-1][j], parr[i-1]+dp[i][j-larr[i-1]])
 			} else {
 				dp[i][j] = dp[i-1][j]
 			}
@@ -294,11 +294,12 @@ func coin_change_1_code(arr []int, n int, s int) int {
 		dp[i] = make([]int, 1+s)
 	}
 
-	for i := 1; i < 1+n; i++ {
+	// dp[0][0] = 0 : imp
+	for i := 0; i < 1+n; i++ {
 		dp[i][0] = 0 // sum reqd is 0, and items avaliable is i, minimum coins => 0
 	}
 
-	for i := 0; i < 1+s; i++ {
+	for i := 1; i < 1+s; i++ {
 		// you can use INF = 1e9 in place of "math.MaxInt - 1" to simplify.
 		dp[0][i] = math.MaxInt - 1 // non zero sum reqd fom 0 coins
 	}

@@ -70,7 +70,7 @@ sources :
       2. NO NEGTIVE CYCLE => dijkstra
       3. POSSIBLE NEGTIVE CYCLE => Bellman Ford
    9.  minimum distance between any two nodes
-      1.  FLOYD-WARSHALL 
+      1.  FLOYD-WARSHALL
 4. dynamic programming : 
    1. 1D DP
       1. frong jump, climibing stairs
@@ -92,6 +92,8 @@ sources :
       7. 
    5. dp::PATTERN::house-robber : 
 5. sliding window
+   1. fixed size window
+   2. variable window : window size is not constraint but some other condition
 6. linklist
 7. array::PATTERN::interval related
 8. array::PATTERN::stock buy-sell related
@@ -101,6 +103,30 @@ sources :
     2. go to certain node based on index
     3.  
 11. binary search tree
+    1.  Traversals
+        1.  inorder
+        2.  pre-prder
+        3.  post-order
+        4.  level-order
+        5.  zig-zag-order
+        6.  vertical order
+        7.  minimum absolute difference b/w two nodes // IMP
+        8.  greater_sum_tree // IMP
+        9.  build balanced BST
+        10. IS complete binary tree
+    2.  Views : 
+        1.  left views
+        2.  bottom view
+        3.  top view
+        4.  right view
+        5.  boundry nodes
+    3. root to leaf Path and partial path
+       1. printing all paths
+       2. max difference b/w two nodes in a path
+       3. range sum
+       4. path sum : path from root to leaf with given sum
+       5. path sum : path from root to some node with given sum
+       6.  
 12. heap
 13. backtracking
 14. implementation
@@ -112,3 +138,12 @@ sources :
           2. some duplicates
        2. print all permutations of string
     4. Combinations
+ 15. Greedy : 
+     1. Activity selection : select maximum non overlapping activities
+     2. job sequencing : given job with deadline and value, get max value.
+      3. minimum platforms : given schedules of arrival and departure, minimum platforms required.
+      4. schedule meetings : same as activity selection
+      5. maximum trains for which stoppage can be provided : https://www.geeksforgeeks.org/dsa/maximum-trains-stoppage-can-provided/
+         1. similar to activity selection ofr each platform.
+      6. Insert Intervals : insert intervals/merge in sorted interval list
+      7. Merge intervals : merge intervals that might be overlapping.
