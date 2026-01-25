@@ -508,7 +508,7 @@ func main() {
 	// fmt.Println("\nGreater Sum : end")
 	// build_balanced_binary_search_tree(bst.Head)
 
-	// lowest_common_ancestor(bst.Head) // best
+	// lowest_common_ 		ancestor(bst.Head) // best
 	// complete_binary_tree() // best
 	// pruning_tree(bst.Head) // best
 
